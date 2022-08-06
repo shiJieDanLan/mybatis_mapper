@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.etoak.student.mapper.PersonMapper">
+
+    <insert id="addPerson">
+        <selectKey resultType="string" keyProperty="id" order="BEFORE">
+            select replace(uuid(),"-","")
+        </selectKey>
+        insert into person (id,name,age) values  (#{id},#{name},#{age})
+    </insert>
+
+    <insert id="addPersons">
+        insert into person (id, name, age)
+        <foreach collection="list" item="s" separator="union">
+            (select replace(uuid(),"-",""),#{s.name},#{s.age})
+        </foreach>
+    </insert>
+
+
+</mapper>

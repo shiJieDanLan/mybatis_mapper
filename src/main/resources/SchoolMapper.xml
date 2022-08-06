@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.etoak.student.mapper.SchoolMapper">
+
+    <resultMap id="kk1" type="sch">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="phone" column="phone"></result>
+        <result property="info" column="info"></result>
+        <collection property="stu" ofType="stu">
+            <id property="id" column="s_id"></id>
+            <result property="name" column="s_name"></result>
+            <result property="age" column="s_age"></result>
+            <result property="birth" column="s_birth"></result>
+            <result property="email" column="s_email"></result>
+            <result property="schid" column="s_schid"></result>
+        </collection>
+    </resultMap>
+    <select id="querySch1" resultMap="kk1">
+        select s_id,s_name,s_age,s_id, s_name, s_age, s_birth,
+        s_email, s_schid, id, name, phone, proid, cityid, areaid, info
+        from school sch left join tb_stu on s_schid=sch.id where id=#{id}
+
+    </select>
+
+
+
+    <resultMap id="kk" type="sch">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="phone" column="phone"></result>
+        <result property="info" column="info"></result>
+        <collection property="stu" ofType="stu" select="query" column="id"></collection>
+    </resultMap>
+    <select id="querySch" resultMap="kk">
+              select  id, name, phone, proid, cityid, areaid, info
+        from school   where id=#{id}
+    </select>
+    <select id="query" resultType="stu">
+        select  s_id id, s_name name, s_age age, s_birth birth, s_email email,
+        s_schid schid from tb_stu  where s_schid=#{schid}
+     </select>
+
+
+
+</mapper>
