@@ -23,6 +23,7 @@ public class PersonService {
             System.out.println("pppppp");
             System.out.println("hot-fix修改");
             System.out.println("合并中master额修改");
+            System.out.println("hot-fix合并修改");
             System.out.println(person.getId());
         }catch (Exception e){
             e.printStackTrace();
